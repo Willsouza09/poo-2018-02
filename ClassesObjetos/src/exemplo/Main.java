@@ -4,19 +4,11 @@ public class Main {
 
     public static void main(String[] args) {
 
-        /* Instancia um retângulo */
-        Retangulo r1 = new Retangulo(20, 10);
+        Retangulo r1 = new Retangulo(5, 4);
         
-        r1.imprimeArea();
-        r1.imprimePerimetro();
+        Retangulo r2 = new Retangulo(4, 4);
         
-        Integer area = r1.calculaArea();
-        System.out.println("A área retornada foi " + area);
-        
-        Integer perimetro = r1.calculaPerimetro();
-        System.out.println("O perímetro retornado foi " + perimetro);
-        
-        
+        System.out.println(r1.compara(r2));
         
     }
     
