@@ -38,7 +38,4 @@ public class Vendedor extends Funcionario {
         this.totalVendas = totalVendas;
     }
     
-    
-    
-    
 }
