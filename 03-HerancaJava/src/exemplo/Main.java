@@ -1,5 +1,6 @@
 package exemplo;
 
+import gui.MainGui;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -16,11 +17,12 @@ public class Main {
     }
     
     
-    public static void cadastraVendedor(List<Funcionario> lista) {
+    public static void cadastraVendedor(List<Funcionario> lista,
+            List<Gerente> gerentes) {
         Scanner scanner = new Scanner(System.in);
         
         System.out.println("Informe o nome:");
-        String nome = scanner.next();
+        String nome = scanner.nextLine();
         
         System.out.println("Informe o salario:");
         Double salario = scanner.nextDouble();
@@ -31,15 +33,59 @@ public class Main {
         System.out.println("Informe o total de vendas:");
         Double totalVendas = scanner.nextDouble();
         
+        System.out.println("Selecione um gerente:");
+        
+        for (int i = 0; i < gerentes.size(); ++i) {
+            System.out.printf("[%d] %s\n", i, gerentes.get(i).getNome());
+        }
+        Integer gerenteSelecionado = scanner.nextInt();
+        
         Funcionario vendedor = new Vendedor(comissao, 
                 totalVendas, 
                 nome, 
                 salario);
 
         lista.add(vendedor);
+        
+        gerentes.get(gerenteSelecionado)
+                .vinculaVendedor((Vendedor) vendedor);
     }
     
+    
+    /*
+     * Cadastra um novo gerente
+     */ 
+    public static void cadastraGerente(List<Funcionario> lista) {
+        Scanner scanner = new Scanner(System.in);
+        
+        System.out.println("Informe o nome:");
+        String nome = scanner.nextLine();
+        
+        System.out.println("Informe o salario:");
+        Double salario = scanner.nextDouble();
+        
+        System.out.println("Informe a gratificação:");
+        Double gratificacao = scanner.nextDouble();
+        
+        Funcionario gerente = new Gerente(gratificacao,
+            nome,
+            salario);
 
+        lista.add(gerente);
+        
+    }
+    
+    
+    /*
+     * Imprime a folha de pagamento
+     */
+    public static void imprimeFolhaPagamento(List<Funcionario> lista) {
+        for (Funcionario funcionario : lista) {
+            funcionario.imprimeSalario();
+        }
+    }    
+        
+    /*
     public static void main(String[] args) {
         
         Funcionario v1 = new Vendedor(0.1, 
@@ -59,6 +105,8 @@ public class Main {
         
         List<Funcionario> lista = new ArrayList<>();
         
+        List<Gerente> gerentes = new ArrayList<>();
+        
         ((Gerente) g1).vinculaVendedor((Vendedor)v1);
         ((Gerente) g1).vinculaVendedor((Vendedor)v2);
         ((Gerente) g1).vinculaVendedor((Vendedor)v3);
@@ -68,26 +116,24 @@ public class Main {
         lista.add(v3);
         lista.add(g1);
         
+        gerentes.add((Gerente) g1);
+        
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
             imprimeMenu();
             
-            // TODO: imprimir folha de pagamento
-            for (Funcionario f : lista)
-                System.out.println("Lista: " + f.getNome());
-            
             int opcao = scanner.nextInt();
             
             switch (opcao) {
                 case 1:
-                    cadastraVendedor(lista);
+                    cadastraVendedor(lista, gerentes);
                     break;
                 case 2:
-                    System.out.println("cadastro de novo gerente");
+                    cadastraGerente(lista);
                     break;
                 case 3:
-                    System.out.println("folha de pagamento");
+                    imprimeFolhaPagamento(lista);
                     break;
                 case 9:
                     System.out.println("Obrigado!");
@@ -99,5 +145,15 @@ public class Main {
         }
 
     }
+    */
+    
+    public static void main(String[] args) {
+        
+        MainGui mainGui = new MainGui();
+        mainGui.setVisible(true);
+        
+    }
+    
+    
     
 }
